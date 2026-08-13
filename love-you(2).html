@@ -18,7 +18,7 @@
       --gold: #FFD166;
       --plum: #3E2434;
       --lavender: #D8CCF6;
-      --card-bg: rgba(255, 255, 255, 0.78);
+      --card-bg: rgba(255, 255, 255, 0.82);
       --card-border: rgba(255, 184, 209, 0.5);
       --shadow: 0 14px 40px rgba(184, 42, 84, 0.16);
       --shadow-glow: 0 0 25px rgba(240, 101, 149, 0.25);
@@ -197,7 +197,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 4vh 4vw;
+      padding: 3vh 3vw;
       text-align: center;
       opacity: 0;
       visibility: hidden;
@@ -217,25 +217,30 @@
       -webkit-backdrop-filter: blur(14px);
       border: 2px solid var(--card-border);
       border-radius: 28px;
-      padding: 24px 28px;
+      padding: 24px 26px;
       box-shadow: var(--shadow);
-      width: min(92vw, 440px);
+      width: min(92vw, 450px);
       display: flex;
       flex-direction: column;
       align-items: center;
       position: relative;
-      overflow: hidden;
     }
 
-    .glass-card::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.4), transparent 60%);
-      pointer-events: none;
+    .glass-card-scroll {
+      max-height: 88vh;
+      overflow-y: auto;
+      overflow-x: hidden;
+      scrollbar-width: thin;
+      scrollbar-color: var(--rose) transparent;
+    }
+
+    .glass-card-scroll::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .glass-card-scroll::-webkit-scrollbar-thumb {
+      background: var(--blush-2);
+      border-radius: 999px;
     }
 
     .eyebrow {
@@ -244,21 +249,21 @@
       text-transform: uppercase;
       color: var(--rose);
       font-weight: 700;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .title {
-      font-size: clamp(1.6rem, 5.5vw, 2.5rem);
+      font-size: clamp(1.5rem, 5.2vw, 2.4rem);
       color: var(--berry);
       font-weight: 700;
       line-height: 1.2;
     }
 
     .subtitle {
-      font-size: clamp(0.95rem, 3vw, 1.1rem);
+      font-size: clamp(0.9rem, 2.8vw, 1.05rem);
       color: var(--plum);
       opacity: 0.82;
-      margin-top: 8px;
+      margin-top: 6px;
       max-width: 380px;
       line-height: 1.45;
     }
@@ -266,7 +271,7 @@
     .hint-tap {
       font-size: 0.85rem;
       color: var(--rose);
-      margin-top: 10px;
+      margin-top: 8px;
       font-weight: 600;
       opacity: 0;
       transition: opacity 0.3s;
@@ -274,11 +279,14 @@
 
     /* ---------- Critter Character ---------- */
     .critter-wrap {
-      width: 130px;
-      height: 130px;
-      margin: 12px auto;
+      width: 125px;
+      height: 125px;
+      margin: 10px auto;
       cursor: pointer;
       position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .eye {
@@ -295,7 +303,7 @@
       color: var(--berry);
       font-weight: 700;
       max-width: 280px;
-      margin: 4px auto 10px;
+      margin: 2px auto 8px;
       opacity: 0;
       transform: translateY(8px) scale(0.9);
       transition: all 0.35s cubic-bezier(.34, 1.56, .64, 1);
@@ -320,9 +328,9 @@
 
     /* ---------- 3D Door Stage ---------- */
     .door-stage {
-      width: 150px;
-      height: 185px;
-      margin: 12px auto 4px;
+      width: 145px;
+      height: 175px;
+      margin: 10px auto 4px;
       position: relative;
       perspective: 700px;
     }
@@ -397,11 +405,11 @@
     }
 
     .pw-form {
-      margin-top: 14px;
+      margin-top: 12px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       position: relative;
       z-index: 2;
       width: 100%;
@@ -412,7 +420,7 @@
       font-weight: 700;
       font-size: 1.1rem;
       text-align: center;
-      padding: 14px 20px;
+      padding: 13px 20px;
       border-radius: 999px;
       border: 2px solid var(--blush-2);
       background: rgba(255, 255, 255, 0.9);
@@ -437,7 +445,7 @@
       background: linear-gradient(135deg, var(--rose), var(--berry));
       border: none;
       border-radius: 999px;
-      padding: 13px 34px;
+      padding: 12px 34px;
       cursor: pointer;
       box-shadow: 0 8px 20px rgba(184, 42, 84, 0.3);
       transition: transform 0.2s, box-shadow 0.2s;
@@ -460,8 +468,8 @@
       position: relative;
       width: 100%;
       max-width: 400px;
-      height: 240px;
-      margin-top: 14px;
+      height: 200px;
+      margin-top: 10px;
     }
 
     .yn-btn {
@@ -471,7 +479,7 @@
       font-size: 1.15rem;
       border: none;
       border-radius: 999px;
-      padding: 16px 40px;
+      padding: 15px 38px;
       cursor: pointer;
       box-shadow: var(--shadow);
       white-space: nowrap;
@@ -482,7 +490,7 @@
       color: #fff;
       background: linear-gradient(135deg, var(--rose), var(--berry));
       left: 50%;
-      top: 40%;
+      top: 35%;
       transform: translate(-50%, -50%);
       box-shadow: 0 10px 25px rgba(240, 101, 149, 0.4);
     }
@@ -492,7 +500,7 @@
       background: #fff;
       border: 2.5px solid var(--blush-2);
       left: 50%;
-      top: 78%;
+      top: 75%;
       transform: translate(-50%, -50%);
     }
 
@@ -520,12 +528,11 @@
     }
 
     .final-msg {
-      font-size: clamp(1rem, 3.6vw, 1.18rem);
-      line-height: 1.75;
+      font-size: clamp(0.95rem, 3.2vw, 1.1rem);
+      line-height: 1.65;
       color: var(--plum);
       max-width: 420px;
-      margin: 12px 0 6px;
-      min-height: 110px;
+      margin: 8px 0 12px;
       font-weight: 600;
     }
 
@@ -536,16 +543,17 @@
 
     .gallery {
       display: flex;
-      gap: 14px;
+      gap: 12px;
       flex-wrap: wrap;
       justify-content: center;
-      max-width: 440px;
-      margin-top: 14px;
+      max-width: 420px;
+      margin-top: 6px;
+      margin-bottom: 10px;
     }
 
     .polaroid {
-      width: 110px;
-      height: 136px;
+      width: 106px;
+      height: 132px;
       perspective: 800px;
       cursor: pointer;
     }
@@ -569,18 +577,18 @@
       background: #fff;
       border-radius: 10px;
       box-shadow: var(--shadow);
-      padding: 8px 8px 16px;
+      padding: 6px 6px 14px;
       border: 1px solid rgba(0, 0, 0, 0.05);
     }
 
     .polaroid-face::before {
       content: '';
       position: absolute;
-      top: -8px;
+      top: -7px;
       left: 50%;
       transform: translateX(-50%);
-      width: 32px;
-      height: 14px;
+      width: 30px;
+      height: 13px;
       background: rgba(255, 255, 255, 0.7);
       border: 1px solid rgba(0, 0, 0, 0.08);
       backdrop-filter: blur(4px);
@@ -592,13 +600,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 12px;
+      padding: 10px;
       background: #FFF8FA;
     }
 
     .polaroid-img {
       width: 100%;
-      height: 84px;
+      height: 82px;
       border-radius: 6px;
       object-fit: cover;
       display: block;
@@ -606,15 +614,15 @@
     }
 
     .polaroid-cap {
-      font-size: 0.65rem;
+      font-size: 0.64rem;
       text-align: center;
       color: var(--berry);
-      margin-top: 6px;
+      margin-top: 5px;
       font-weight: 700;
     }
 
     .polaroid-note {
-      font-size: 0.68rem;
+      font-size: 0.66rem;
       color: var(--berry);
       font-weight: 700;
       text-align: center;
@@ -622,8 +630,8 @@
     }
 
     .final-heart {
-      font-size: 2.5rem;
-      margin-top: 4px;
+      font-size: 2.3rem;
+      margin-top: 2px;
       animation: heartbeat 1.3s ease-in-out infinite;
     }
 
@@ -648,7 +656,8 @@
     }
 
     .replay-btn {
-      margin-top: 18px;
+      margin-top: 10px;
+      margin-bottom: 6px;
       font-family: 'Quicksand', sans-serif;
       font-weight: 700;
       font-size: 0.85rem;
@@ -710,6 +719,16 @@
         <p class="subtitle">Only you would know this one 💗</p>
         <div class="critter-wrap" id="critterPw"></div>
         <div class="bubble" id="bubblePw"></div>
+
+        <!-- Kiss Animation Flourish Container -->
+        <div id="kissFlourish"
+          style="display:none; flex-direction:row; align-items:center; justify-content:center; gap:12px; margin-top:8px; z-index:10;">
+          <img src="kiss.webp" alt="kiss"
+            style="width:105px; height:105px; object-fit:contain; border-radius:18px; filter:drop-shadow(0 6px 16px rgba(184,42,84,0.3)); border:2px solid var(--blush);">
+          <img src="kiss2.webp" alt="kiss2"
+            style="width:105px; height:105px; object-fit:contain; border-radius:18px; filter:drop-shadow(0 6px 16px rgba(184,42,84,0.3)); border:2px solid var(--blush);">
+        </div>
+
         <form class="pw-form" id="pwForm" autocomplete="off" action="#">
           <input class="pw-input" id="pwInput" type="text" placeholder="type here..." autocomplete="off"
             autocapitalize="off" spellcheck="false" enterkeyhint="done">
@@ -725,6 +744,14 @@
         <div class="eyebrow">just checking</div>
         <h1 class="title">Do you love me?</h1>
         <p class="subtitle" id="qSub">Choose wisely 😏</p>
+
+        <!-- Reaction Webp Container -->
+        <div id="reactionWrap"
+          style="height:90px; display:flex; align-items:center; justify-content:center; margin-top:6px;">
+          <img id="reactionImg" src="sad.webp" alt="reaction"
+            style="height:85px; width:auto; object-fit:contain; display:none; filter:drop-shadow(0 6px 14px rgba(184,42,84,0.22));">
+        </div>
+
         <div class="yn-stage" id="ynStage">
           <button class="yn-btn yn-yes" id="btnYes">Yes 💖</button>
           <button class="yn-btn yn-no" id="btnNo">No</button>
@@ -734,7 +761,7 @@
 
     <!-- SCENE 4: FINAL -->
     <section class="scene" id="scene-final">
-      <div class="glass-card" style="width: min(92vw, 480px);">
+      <div class="glass-card glass-card-scroll" style="width: min(92vw, 460px);">
         <div class="final-heart">💗</div>
         <h1 class="title" id="finalTitle">I knew it.</h1>
         <div class="final-msg" id="finalMsg"></div>
@@ -761,7 +788,10 @@
       loveMessage:
         `{{herName}}, from the day I met you, everything just made a little more sense. Every laugh, every silly argument, every quiet moment together became my favorite parts of being alive. Thank you for being exactly who you are. I love you more than this little website could ever say.`,
       photos: [
-        // { src: "https://your-image-link.com/1.jpg", caption: "us <3", note: "best day ever" },
+        { src: "couple1.webp", caption: "us 💕", note: "a moment I'll keep forever" },
+        { src: "couple2.webp", caption: "together ✨", note: "my favorite kind of day" },
+        { src: "couple3.webp", caption: "happy days 💖", note: "you bring me so much joy" },
+        { src: "couple4.webp", caption: "my love 💗", note: "still my favorite person" }
       ]
     };
 
@@ -920,40 +950,40 @@
       critterCount++;
       const id = 'critter' + critterCount;
       container.innerHTML = `
-  <svg viewBox="0 0 100 100" width="100%" height="100%" id="${id}">
-    <!-- Ears -->
-    <g class="ear-left">
-      <circle cx="26" cy="22" r="14" fill="${color}"/>
-      <circle cx="26" cy="24" r="7" fill="#FFB8D1"/>
-    </g>
-    <g class="ear-right">
-      <circle cx="74" cy="22" r="14" fill="${color}"/>
-      <circle cx="74" cy="24" r="7" fill="#FFB8D1"/>
-    </g>
-    <!-- Body -->
-    <circle cx="50" cy="56" r="38" fill="${color}"/>
-    <!-- Cheeks Blush -->
-    <ellipse cx="26" cy="60" rx="7" ry="4.5" fill="#F06595" opacity="0.65"/>
-    <ellipse cx="74" cy="60" rx="7" ry="4.5" fill="#F06595" opacity="0.65"/>
-    <!-- Normal Eyes -->
-    <g class="eyes-normal">
-      <circle class="eye eye1" cx="37" cy="50" r="4.5" fill="#3E2434"/>
-      <circle class="eye eye2" cx="63" cy="50" r="4.5" fill="#3E2434"/>
-      <circle cx="38.5" cy="48.5" r="1.5" fill="#FFF"/>
-      <circle cx="64.5" cy="48.5" r="1.5" fill="#FFF"/>
-    </g>
-    <!-- Heart Eyes -->
-    <g class="eyes-heart" style="display:none;">
-      <path d="M37 46 C35 43 30 43 30 47 C30 50 37 55 37 55 C37 55 44 50 44 47 C44 43 39 43 37 46 Z" fill="#E73562"/>
-      <path d="M63 46 C61 43 56 43 56 47 C56 50 63 55 63 55 C63 55 70 50 70 47 C70 43 65 43 63 46 Z" fill="#E73562"/>
-    </g>
-    <!-- Sweat Drop (Wrong Password) -->
-    <g class="sweat-drop" style="display:none;">
-      <path d="M 80 42 Q 83 47 80 50 Q 77 47 80 42 Z" fill="#74C0FC"/>
-    </g>
-    <!-- Mouth -->
-    <path class="mouth" id="${id}-mouth" d="M 41 64 Q 50 72 59 64" stroke="#3E2434" stroke-width="3" fill="none" stroke-linecap="round"/>
-  </svg>`;
+      <svg viewBox="0 0 100 100" width="100%" height="100%" id="${id}">
+        <!-- Ears -->
+        <g class="ear-left">
+          <circle cx="26" cy="22" r="14" fill="${color}"/>
+          <circle cx="26" cy="24" r="7" fill="#FFB8D1"/>
+        </g>
+        <g class="ear-right">
+          <circle cx="74" cy="22" r="14" fill="${color}"/>
+          <circle cx="74" cy="24" r="7" fill="#FFB8D1"/>
+        </g>
+        <!-- Body -->
+        <circle cx="50" cy="56" r="38" fill="${color}"/>
+        <!-- Cheeks Blush -->
+        <ellipse cx="26" cy="60" rx="7" ry="4.5" fill="#F06595" opacity="0.65"/>
+        <ellipse cx="74" cy="60" rx="7" ry="4.5" fill="#F06595" opacity="0.65"/>
+        <!-- Normal Eyes -->
+        <g class="eyes-normal">
+          <circle class="eye eye1" cx="37" cy="50" r="4.5" fill="#3E2434"/>
+          <circle class="eye eye2" cx="63" cy="50" r="4.5" fill="#3E2434"/>
+          <circle cx="38.5" cy="48.5" r="1.5" fill="#FFF"/>
+          <circle cx="64.5" cy="48.5" r="1.5" fill="#FFF"/>
+        </g>
+        <!-- Heart Eyes -->
+        <g class="eyes-heart" style="display:none;">
+          <path d="M37 46 C35 43 30 43 30 47 C30 50 37 55 37 55 C37 55 44 50 44 47 C44 43 39 43 37 46 Z" fill="#E73562"/>
+          <path d="M63 46 C61 43 56 43 56 47 C56 50 63 55 63 55 C63 55 70 50 70 47 C70 43 65 43 63 46 Z" fill="#E73562"/>
+        </g>
+        <!-- Sweat Drop (Wrong Password) -->
+        <g class="sweat-drop" style="display:none;">
+          <path d="M 80 42 Q 83 47 80 50 Q 77 47 80 42 Z" fill="#74C0FC"/>
+        </g>
+        <!-- Mouth -->
+        <path class="mouth" id="${id}-mouth" d="M 41 64 Q 50 72 59 64" stroke="#3E2434" stroke-width="3" fill="none" stroke-linecap="round"/>
+      </svg>`;
 
       gsap.to(container, { y: -8, rotation: 2, duration: 1.6, repeat: -1, yoyo: true, ease: 'sine.inOut', transformOrigin: 'center' });
       const eyes = container.querySelectorAll('.eye');
@@ -1059,14 +1089,21 @@
 
     let knocked = false;
     critterHomeEl.addEventListener('click', (e) => {
-      critterTapPop(critterHomeEl);
-      heartBurst(e.clientX, e.clientY, 6);
       if (knocked) return;
       knocked = true;
+
+      // Swap critter SVG with hug.webp with gentle motion
+      critterHomeEl.innerHTML = `<img id="hugImg" src="hug.webp" alt="hug" style="width:100%; height:100%; object-fit:contain; filter:drop-shadow(0 6px 12px rgba(184,42,84,0.18));">`;
+      const hugImg = document.getElementById('hugImg');
+      gsap.to(hugImg, { y: -8, rotation: 3, duration: 1.5, repeat: -1, yoyo: true, ease: 'sine.inOut', transformOrigin: 'center' });
+
+      critterTapPop(critterHomeEl);
+      heartBurst(e.clientX || window.innerWidth / 2, e.clientY || window.innerHeight / 2, 8);
       playAudioFx('knock');
       bubbleHome.classList.add('show');
       homeTitle.textContent = "Knock knock!";
       homeSub.textContent = "";
+
       const tl = gsap.timeline({ delay: 0.1 });
       tl.to(doorEl, { rotation: -3, duration: 0.08 })
         .to(doorEl, { rotation: 3, duration: 0.08 })
@@ -1099,6 +1136,7 @@
     const pwForm = document.getElementById('pwForm');
     const pwInput = document.getElementById('pwInput');
     const pwMsg = document.getElementById('pwMsg');
+    const kissFlourish = document.getElementById('kissFlourish');
 
     critterPwEl.addEventListener('click', (e) => {
       critterTapPop(critterPwEl);
@@ -1123,11 +1161,23 @@
         critterHeartEyes(critterPwId, true);
         burst(0.5, 0.4);
         const rect = pwInput.getBoundingClientRect();
-        heartBurst(rect.left + rect.width / 2, rect.top, 12);
+        heartBurst(rect.left + rect.width / 2, rect.top, 16);
+
+        // Display kiss.webp and kiss2.webp animation flourish
+        if (kissFlourish) {
+          kissFlourish.style.display = 'flex';
+          gsap.fromTo(kissFlourish.children,
+            { scale: 0, opacity: 0, y: 20, rotation: -10 },
+            { scale: 1, opacity: 1, y: 0, rotation: 0, duration: 0.6, stagger: 0.15, ease: 'back.out(1.8)' }
+          );
+          gsap.to(kissFlourish.children, { y: -6, duration: 1.2, repeat: -1, yoyo: true, ease: 'sine.inOut', stagger: 0.2 });
+        }
+
         setTimeout(() => {
           goTo('question', e);
           pwChecking = false;
-        }, 650);
+          if (kissFlourish) kissFlourish.style.display = 'none';
+        }, 2600); // 2.6s display before moving to next scene
       } else {
         playAudioFx('wrong');
         pwMsg.style.color = '#e74c3c';
@@ -1153,6 +1203,9 @@
     const btnYes = document.getElementById('btnYes');
     const btnNo = document.getElementById('btnNo');
     const qSub = document.getElementById('qSub');
+    const reactionImgEl = document.getElementById('reactionImg');
+    const reactionImages = ['angry1.webp', 'sad.webp', 'sad2.webp', 'sad3.webp', 'lovebite.webp'];
+    let lastReactionIndex = -1;
     const noTaunts = ["No", "Nice try 😏", "Nope!", "Not happening", "Try again?", "Missed me!", "So close 😉", "Nuh uh 💖"];
     let dodgeCount = 0;
 
@@ -1160,6 +1213,23 @@
 
     function moveNoButton() {
       playAudioFx('dodge');
+
+      // Random reaction image on No dodge
+      let randIdx;
+      do {
+        randIdx = Math.floor(Math.random() * reactionImages.length);
+      } while (randIdx === lastReactionIndex && reactionImages.length > 1);
+      lastReactionIndex = randIdx;
+
+      if (reactionImgEl) {
+        reactionImgEl.src = reactionImages[randIdx];
+        reactionImgEl.style.display = 'block';
+        gsap.fromTo(reactionImgEl,
+          { scale: 0.3, opacity: 0, rotation: Math.random() * 24 - 12 },
+          { scale: 1, opacity: 1, rotation: 0, duration: 0.35, ease: 'back.out(2)' }
+        );
+      }
+
       const rect = stageRect();
       const btnW = btnNo.offsetWidth, btnH = btnNo.offsetHeight;
       const padX = btnW / 2 + 8, padY = btnH / 2 + 8;
@@ -1170,15 +1240,12 @@
         x = padX + Math.random() * (maxX - padX);
         y = padY + Math.random() * (maxY - padY);
         tries++;
-      } while (Math.hypot(x - rect.width * 0.5, y - rect.height * 0.4) < 90 && tries < 12);
+      } while (Math.hypot(x - rect.width * 0.5, y - rect.height * 0.35) < 80 && tries < 12);
 
       dodgeCount++;
       btnNo.textContent = noTaunts[Math.min(dodgeCount, noTaunts.length - 1)];
       gsap.to(btnNo, { left: x, top: y, rotation: (Math.random() * 36 - 18), duration: 0.4, ease: 'back.out(1.8)' });
       gsap.fromTo(btnYes, { scale: 1 + Math.min(dodgeCount - 1, 10) * 0.03 }, { scale: 1 + Math.min(dodgeCount, 10) * 0.03, duration: 0.3, ease: 'back.out(2)' });
-
-      if (dodgeCount === 3) qSub.textContent = "Yes is right there though 👀";
-      if (dodgeCount === 6) qSub.textContent = "It's getting tired, just say yes 🥹";
     }
 
     btnNo.addEventListener('touchstart', (e) => { e.preventDefault(); moveNoButton(); }, { passive: false });
@@ -1202,9 +1269,10 @@
     new MutationObserver(() => {
       if (scenes.question.classList.contains('active')) {
         dodgeCount = 0; qSub.textContent = "Choose wisely 😏";
+        if (reactionImgEl) reactionImgEl.style.display = 'none';
         requestAnimationFrame(() => {
           const rect = stageRect();
-          gsap.set(btnNo, { left: rect.width * 0.5, top: rect.height * 0.78, rotation: 0 });
+          gsap.set(btnNo, { left: rect.width * 0.5, top: rect.height * 0.75, rotation: 0 });
           gsap.set(btnYes, { scale: 1 });
         });
       }
@@ -1219,15 +1287,17 @@
 
       const gallery = document.getElementById('gallery');
       gallery.innerHTML = '';
-      const defaultNotes = ["a moment I'll keep forever", "my favorite kind of day", "you, being adorable", "my favorite person"];
-      const items = (CONFIG.photos && CONFIG.photos.length) ? CONFIG.photos : [0, 1, 2, 3].map(i => ({ placeholder: true, caption: i === 0 ? 'us 💕' : 'memories ✨', note: defaultNotes[i] }));
+      const items = (CONFIG.photos && CONFIG.photos.length) ? CONFIG.photos : [
+        { src: "couple1.webp", caption: "us 💕", note: "a moment I'll keep forever" },
+        { src: "couple2.webp", caption: "together ✨", note: "my favorite kind of day" },
+        { src: "couple3.webp", caption: "happy days 💖", note: "you bring me so much joy" },
+        { src: "couple4.webp", caption: "my love 💗", note: "still my favorite person" }
+      ];
 
       items.forEach((p, i) => {
         const card = document.createElement('div');
         card.className = 'polaroid';
-        const imgHtml = p.placeholder
-          ? `<div class="polaroid-img" style="display:flex;align-items:center;justify-content:center;font-size:1.6rem;">💗</div>`
-          : `<img class="polaroid-img" src="${p.src}" alt="${p.caption || ''}">`;
+        const imgHtml = `<img class="polaroid-img" src="${p.src}" alt="${p.caption || ''}" onerror="this.outerHTML='<div class=\\'polaroid-img\\' style=\\'display:flex;align-items:center;justify-content:center;font-size:1.6rem;\\'>💗</div>'">`;
         card.innerHTML = `
       <div class="polaroid-inner">
         <div class="polaroid-face">${imgHtml}<div class="polaroid-cap">${p.caption || ''}</div></div>
@@ -1255,8 +1325,14 @@
       homeSub.textContent = "Tap the little critter to see who it is 👇";
       doorHint.style.opacity = '0';
       pwInput.value = ''; pwMsg.textContent = '';
+      if (kissFlourish) kissFlourish.style.display = 'none';
+      if (reactionImgEl) reactionImgEl.style.display = 'none';
       critterHeartEyes(critterPwId, false);
       critterHeartEyes(critterHomeId, false);
+
+      // Reset critterHomeEl to SVG critter
+      makeCritter(document.getElementById('critterHome'), '#F5A7BE');
+
       goTo('home', e);
     });
 
