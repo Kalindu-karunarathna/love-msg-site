@@ -463,6 +463,24 @@
       margin-top: 2px;
     }
 
+    .pulse-btn {
+      animation: pulseGlow 1.8s ease-in-out infinite;
+    }
+
+    @keyframes pulseGlow {
+
+      0%,
+      100% {
+        box-shadow: 0 6px 20px rgba(240, 101, 149, 0.35);
+        transform: scale(1);
+      }
+
+      50% {
+        box-shadow: 0 10px 28px rgba(240, 101, 149, 0.6);
+        transform: scale(1.04);
+      }
+    }
+
     /* ---------- Yes / No Interactive Stage ---------- */
     .yn-stage {
       position: relative;
@@ -714,19 +732,27 @@
         <div class="float-icon" style="top:8%; left:8%;">🔑</div>
         <div class="float-icon" style="top:12%; right:8%; animation-delay:1.2s;">🔒</div>
         <div class="float-icon" style="bottom:10%; left:6%; animation-delay:2.4s;">✨</div>
-        <div class="eyebrow">one more step</div>
-        <h1 class="title">What's the secret word?</h1>
-        <p class="subtitle">Only you would know this one 💗</p>
+        <div class="eyebrow" id="pwEyebrow">one more step</div>
+        <h1 class="title" id="pwTitle">What's the secret word?</h1>
+        <p class="subtitle" id="pwSub">Only you would know this one 💗</p>
         <div class="critter-wrap" id="critterPw"></div>
         <div class="bubble" id="bubblePw"></div>
 
-        <!-- Kiss Animation Flourish Container -->
+        <!-- Kiss Animation & Victory Flourish Container -->
         <div id="kissFlourish"
-          style="display:none; flex-direction:row; align-items:center; justify-content:center; gap:12px; margin-top:8px; z-index:10;">
-          <img src="kiss.webp" alt="kiss"
-            style="width:105px; height:105px; object-fit:contain; border-radius:18px; filter:drop-shadow(0 6px 16px rgba(184,42,84,0.3)); border:2px solid var(--blush);">
-          <img src="kiss2.webp" alt="kiss2"
-            style="width:105px; height:105px; object-fit:contain; border-radius:18px; filter:drop-shadow(0 6px 16px rgba(184,42,84,0.3)); border:2px solid var(--blush);">
+          style="display:none; flex-direction:column; align-items:center; justify-content:center; gap:16px; margin-top:12px; z-index:10; width:100%;">
+
+          <div style="display:flex; flex-direction:row; align-items:center; justify-content:center; gap:14px;">
+            <img id="kissImg1" src="kiss.webp" alt="kiss"
+              style="width:112px; height:112px; object-fit:contain; border-radius:18px; filter:drop-shadow(0 6px 16px rgba(184,42,84,0.3)); border:2.5px solid var(--blush); transform-origin:center;">
+            <img id="kissImg2" src="kiss2.webp" alt="kiss2"
+              style="width:112px; height:112px; object-fit:contain; border-radius:18px; filter:drop-shadow(0 6px 16px rgba(184,42,84,0.3)); border:2.5px solid var(--blush); transform-origin:center;">
+          </div>
+
+          <button id="pwForwardBtn" class="pulse-btn"
+            style="font-family:'Fredoka', sans-serif; font-size:1.05rem; font-weight:600; color:#fff; background:linear-gradient(135deg, var(--rose), var(--berry)); border:none; border-radius:999px; padding:13px 34px; cursor:pointer; margin-top:4px;">
+            Wanna move forward? ✨
+          </button>
         </div>
 
         <form class="pw-form" id="pwForm" autocomplete="off" action="#">
@@ -764,6 +790,18 @@
       <div class="glass-card glass-card-scroll" style="width: min(92vw, 460px);">
         <div class="final-heart">💗</div>
         <h1 class="title" id="finalTitle">I knew it.</h1>
+
+        <!-- Borderless "This is for you" + Cat with Bouquet Row -->
+        <div class="for-you-row"
+          style="display:flex; align-items:center; justify-content:space-between; width:100%; max-width:390px; margin: 12px 0 8px; padding: 12px 18px; background: rgba(255,255,255,0.68); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-radius: 24px; border: none; box-shadow: 0 8px 24px rgba(240, 101, 149, 0.12);">
+          <div
+            style="font-family:'Fredoka', sans-serif; font-size:1.2rem; color:var(--berry); font-weight:700; text-align:left; letter-spacing: -0.01em;">
+            This is for you 💕
+          </div>
+          <img id="catImg" src="Cute Cat with Flower Bouquet.jpg" alt="Cute Cat"
+            style="width:84px; height:84px; object-fit:cover; border-radius:18px; border: none; box-shadow: 0 8px 18px rgba(184,42,84,0.18);">
+        </div>
+
         <div class="final-msg" id="finalMsg"></div>
         <div class="gallery" id="gallery"></div>
         <button class="replay-btn" id="replayBtn">↺ watch it again</button>
@@ -786,7 +824,7 @@
       password: "iloveyou",
       passwordHint: "Hint: three little words, all lowercase, no spaces 💕",
       loveMessage:
-        `{{herName}}, from the day I met you, everything just made a little more sense. Every laugh, every silly argument, every quiet moment together became my favorite parts of being alive. Thank you for being exactly who you are. I love you more than this little website could ever say.`,
+        `{{herName}}, I love you until my last breath, and you are the most beautiful girl I have ever seen. Thank you for being exactly who you are. I love you more than this little website could ever say. 💖`,
       photos: [
         { src: "couple1.webp", caption: "us 💕", note: "a moment I'll keep forever" },
         { src: "couple2.webp", caption: "together ✨", note: "my favorite kind of day" },
@@ -1137,6 +1175,8 @@
     const pwInput = document.getElementById('pwInput');
     const pwMsg = document.getElementById('pwMsg');
     const kissFlourish = document.getElementById('kissFlourish');
+    const pwForwardBtn = document.getElementById('pwForwardBtn');
+    let kissHeartInterval = null;
 
     critterPwEl.addEventListener('click', (e) => {
       critterTapPop(critterPwEl);
@@ -1156,28 +1196,50 @@
 
       if (val === target) {
         playAudioFx('unlock');
-        pwMsg.style.color = '#27ae60';
-        pwMsg.textContent = 'Correct! 💖';
-        critterHeartEyes(critterPwId, true);
         burst(0.5, 0.4);
         const rect = pwInput.getBoundingClientRect();
         heartBurst(rect.left + rect.width / 2, rect.top, 16);
 
-        // Display kiss.webp and kiss2.webp animation flourish
+        // Update Title to "You guessed the secret! 💖"
+        const pwTitle = document.getElementById('pwTitle');
+        if (pwTitle) pwTitle.textContent = "You guessed the secret! 💖";
+
+        // Remove / Hide: Eyebrow, Subtitle, Critter Image, Bubble, Form
+        const pwEyebrow = document.getElementById('pwEyebrow');
+        const pwSub = document.getElementById('pwSub');
+        const critterPw = document.getElementById('critterPw');
+        const bubblePw = document.getElementById('bubblePw');
+
+        if (pwEyebrow) pwEyebrow.style.display = 'none';
+        if (pwSub) pwSub.style.display = 'none';
+        if (critterPw) critterPw.style.display = 'none';
+        if (bubblePw) bubblePw.style.display = 'none';
+        pwForm.style.display = 'none';
+
+        // Display Kiss Flourish directly below the new heading
         if (kissFlourish) {
           kissFlourish.style.display = 'flex';
-          gsap.fromTo(kissFlourish.children,
-            { scale: 0, opacity: 0, y: 20, rotation: -10 },
-            { scale: 1, opacity: 1, y: 0, rotation: 0, duration: 0.6, stagger: 0.15, ease: 'back.out(1.8)' }
-          );
-          gsap.to(kissFlourish.children, { y: -6, duration: 1.2, repeat: -1, yoyo: true, ease: 'sine.inOut', stagger: 0.2 });
-        }
+          const kiss1 = document.getElementById('kissImg1');
+          const kiss2 = document.getElementById('kissImg2');
 
-        setTimeout(() => {
-          goTo('question', e);
-          pwChecking = false;
-          if (kissFlourish) kissFlourish.style.display = 'none';
-        }, 2600); // 2.6s display before moving to next scene
+          gsap.fromTo(kissFlourish,
+            { scale: 0.8, opacity: 0 },
+            { scale: 1, opacity: 1, duration: 0.5, ease: 'back.out(1.6)' }
+          );
+
+          // Active Kissing Motion Animation
+          gsap.to(kiss1, { x: 14, rotation: 8, duration: 0.65, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+          gsap.to(kiss2, { x: -14, rotation: -8, duration: 0.65, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+
+          // Periodically spawn heart bursts between them
+          if (kissHeartInterval) clearInterval(kissHeartInterval);
+          kissHeartInterval = setInterval(() => {
+            if (kissFlourish && kissFlourish.style.display !== 'none') {
+              const r = kissFlourish.getBoundingClientRect();
+              heartBurst(r.left + r.width / 2, r.top + r.height / 2 - 15, 4);
+            }
+          }, 1200);
+        }
       } else {
         playAudioFx('wrong');
         pwMsg.style.color = '#e74c3c';
@@ -1197,6 +1259,16 @@
       e.preventDefault();
       checkPassword(e);
     });
+
+    // Manual forward button click handler
+    if (pwForwardBtn) {
+      pwForwardBtn.addEventListener('click', (e) => {
+        playAudioFx('unlock');
+        heartBurst(e.clientX || window.innerWidth / 2, e.clientY || window.innerHeight / 2, 12);
+        if (kissHeartInterval) clearInterval(kissHeartInterval);
+        goTo('question', e);
+      });
+    }
 
     /* ================= SCENE 3: YES / NO ================= */
     const ynStage = document.getElementById('ynStage');
@@ -1285,6 +1357,11 @@
       finalMsgEl.innerHTML = words.map(w => `<span class="word">${w} </span>`).join('');
       gsap.to('#finalMsg .word', { opacity: 1, duration: 0.35, stagger: 0.04, ease: 'power1.out', delay: 0.25 });
 
+      const catImg = document.getElementById('catImg');
+      if (catImg) {
+        gsap.to(catImg, { y: -6, rotation: 3, duration: 1.6, repeat: -1, yoyo: true, ease: 'sine.inOut', transformOrigin: 'center' });
+      }
+
       const gallery = document.getElementById('gallery');
       gallery.innerHTML = '';
       const items = (CONFIG.photos && CONFIG.photos.length) ? CONFIG.photos : [
@@ -1316,7 +1393,7 @@
     document.getElementById('replayBtn').addEventListener('click', (e) => {
       if (isTransitioning) return;
       playAudioFx('pop');
-      knocked = false; doorTapped = false;
+      knocked = false; doorTapped = false; pwChecking = false;
       doorEl.classList.remove('door-glow');
       gsap.set(doorEl, { rotateY: 0 });
       gsap.set(lightRays, { opacity: 0, scale: 1 });
@@ -1324,9 +1401,31 @@
       homeTitle.textContent = "Someone's outside your door...";
       homeSub.textContent = "Tap the little critter to see who it is 👇";
       doorHint.style.opacity = '0';
+
+      // Reset Password Scene Layout
+      const pwTitle = document.getElementById('pwTitle');
+      const pwEyebrow = document.getElementById('pwEyebrow');
+      const pwSub = document.getElementById('pwSub');
+      const critterPw = document.getElementById('critterPw');
+
+      if (pwTitle) pwTitle.textContent = "What's the secret word?";
+      if (pwEyebrow) pwEyebrow.style.display = 'block';
+      if (pwSub) pwSub.style.display = 'block';
+      if (critterPw) critterPw.style.display = 'flex';
+
       pwInput.value = ''; pwMsg.textContent = '';
+      pwForm.style.display = 'flex';
       if (kissFlourish) kissFlourish.style.display = 'none';
+      if (kissHeartInterval) clearInterval(kissHeartInterval);
       if (reactionImgEl) reactionImgEl.style.display = 'none';
+
+      const kiss1 = document.getElementById('kissImg1');
+      const kiss2 = document.getElementById('kissImg2');
+      if (kiss1 && kiss2) {
+        gsap.killTweensOf([kiss1, kiss2]);
+        gsap.set([kiss1, kiss2], { clearProps: 'x,rotation,transform' });
+      }
+
       critterHeartEyes(critterPwId, false);
       critterHeartEyes(critterHomeId, false);
 
