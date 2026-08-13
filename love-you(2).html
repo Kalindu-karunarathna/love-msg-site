@@ -557,6 +557,7 @@
     .final-msg .word {
       opacity: 0;
       display: inline-block;
+      margin-right: 0.28em;
     }
 
     .gallery {
@@ -822,14 +823,14 @@
     const CONFIG = {
       herName: "My Love",
       password: "iloveyou",
-      passwordHint: "Hint: three little words, all lowercase, no spaces 💕",
+      passwordHint: "Hint: three little words, all lowercase, no spaces, what i want to tell you. 💕",
       loveMessage:
-        `{{herName}}, I love you until my last breath, and you are the most beautiful girl I have ever seen. Thank you for being exactly who you are. I love you more than this little website could ever say. 💖`,
+        `My Chathuu bolee, I love you until my last breath, and you are the most beautiful girl I have ever seen. Thank you for being exactly who you are. I love you soo much patiyoo.. 💖`,
       photos: [
         { src: "couple1.webp", caption: "us 💕", note: "a moment I'll keep forever" },
         { src: "couple2.webp", caption: "together ✨", note: "my favorite kind of day" },
         { src: "couple3.webp", caption: "happy days 💖", note: "you bring me so much joy" },
-        { src: "couple4.webp", caption: "my love 💗", note: "still my favorite person" }
+        { src: "couple0.webp", caption: "my love 💗", note: "my favorite person" }
       ]
     };
 
@@ -1353,8 +1354,8 @@
     /* ================= SCENE 4: FINAL ================= */
     function buildFinal() {
       const msg = CONFIG.loveMessage.replace(/\{\{herName\}\}/g, CONFIG.herName);
-      const words = msg.split(' ');
-      finalMsgEl.innerHTML = words.map(w => `<span class="word">${w} </span>`).join('');
+      const words = msg.split(/\s+/);
+      finalMsgEl.innerHTML = words.map(w => `<span class="word">${w}</span>`).join(' ');
       gsap.to('#finalMsg .word', { opacity: 1, duration: 0.35, stagger: 0.04, ease: 'power1.out', delay: 0.25 });
 
       const catImg = document.getElementById('catImg');
@@ -1368,7 +1369,7 @@
         { src: "couple1.webp", caption: "us 💕", note: "a moment I'll keep forever" },
         { src: "couple2.webp", caption: "together ✨", note: "my favorite kind of day" },
         { src: "couple3.webp", caption: "happy days 💖", note: "you bring me so much joy" },
-        { src: "couple4.webp", caption: "my love 💗", note: "still my favorite person" }
+        { src: "couple0.webp", caption: "my love 💗", note: "my favorite person" }
       ];
 
       items.forEach((p, i) => {
